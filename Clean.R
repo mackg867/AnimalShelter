@@ -3,7 +3,7 @@ library(dplyr)
 #####
 #Load Data
 #####
-setwd("C:/Users/Computer/Desktop/Kaggle/Animal Shelter Competition")
+setwd(".../Animal Shelter Competition")
 train <- read.csv("train.csv",stringsAsFactors=FALSE)
 test <- read.csv("test.csv",stringsAsFactors=FALSE)
 
