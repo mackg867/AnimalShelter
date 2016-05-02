@@ -104,6 +104,7 @@ build_Net = function(){
 #Build Logistic Regression Model
 #####
 build_Logist = function(){
+  set.seed(624)
   load("train_clean.RData")
   #Combine the bottom enumerations for the Color and Breed variables
   #such that the bottom types make up 20% of the total observations
@@ -118,7 +119,6 @@ build_Logist = function(){
   l_train$MainBreed = as.factor(l_train$MainBreed)
   
   #Build model
-  set.seed(624)
   logistic = multinom(OutcomeType ~ .,data=l_train[,c(-1,-3)])
   
   #Calculate p-values
