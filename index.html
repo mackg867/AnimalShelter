@@ -25,8 +25,6 @@
 <p>This webpage documents my work with regards to the Shelter Animal Outcomes Kaggle competition.  The following is the introduction
 to the competition provided by Kaggle.</p>
 
-<div style="margin-left:1em;">your text here</div>
-
 <div style="font-family:chicago;margin-left:1em;">Every year, approximately 7.6 million companion animals end up in US shelters. 
 Many animals are given up as unwanted by their owners, while others are picked up after getting lost or taken out of cruelty situations. 
 Many of these animals find forever families to take them home, but just as many are not so lucky. 2.7 million dogs and cats are euthanized in the US every year.
@@ -40,7 +38,24 @@ to the test set.  Kaggle then scores the performance of the model and then posts
 submissions.</p>
 
     <h3>Data Munging</h3>
+    <h4>Data Description</h4>
+<p>Number of Training Observations: 26729</p>
+<p>Number of Test Observations: 11456</p>
 
+<h5>Independant Variables</h5>
+<p>Name - Lists the name of the animal.</p>
+<p>DateTime - No information is provided as to what the date/time signifies but for my analysis I assumed it was the date time
+of the outcome.</p>
+<p>AnimalType - Lists whether the animal is a cat or dog.</p>
+<p>SexuponOutcome - Describes whether the animal is male/female and if it has been neutured/spayed.</p>
+<p>AgeuponOutcome - Age of the animal when the outcome event happened.</p>
+<p>Breed - Lists the breed of the animal.</p>
+<p>Color - Lists the color of the animal.</p>
+
+<h5>Dependant Variables</h5>
+<p>OutcomeType - Five possible values: Return to Owner, Euthanasia, Died, Transfer, Adoption./p>
+<p>OutcomeSubtype - The competition only specified to predict type of outcome and not the subtype.  Given that subtype 
+does not add any information useful for predictions I chose to ignore the subtype variable.</p>
 
 <h3>Exploratory Data Analysis</h3>
 <br>
