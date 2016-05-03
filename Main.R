@@ -29,6 +29,6 @@ source("Models.R")
 ######
 #Build Logistic Model and Predict the Test Data
 ######
-  logistic = build_logistic() #Accuracy:6154
+  logistic = build_logistic() #Accuracy: 0.6154
 
 
