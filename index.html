@@ -42,24 +42,31 @@ submissions.</p>
 <p>Number of Training Observations: 26,729</p>
 <p>Number of Test Observations: 11,456</p>
 
-<h5>Independant Variables</h5>
+<h5>Independant Variable Definitions</h5>
 <p><b>Name</b> - Lists the name of the animal.</p>
 <p><b>DateTime</b> - No information is provided as to what the date/time signifies but for my analysis I assumed it was the date time
-of the outcome.</p>
+of the outcome.  Going off this assumption I did not include this variable in my model because we don't have any knowledge of when
+an outcome will happen before it happens.</p>
 <p><b>AnimalType</b> - Lists whether the animal is a cat or dog.</p>
 <p><b>SexuponOutcome</b> - Describes whether the animal is male/female and if it has been neutured/spayed.</p>
 <p><b>AgeuponOutcome</b> - Age of the animal when the outcome event happened.</p>
 <p><b>Breed</b> - Lists the breed of the animal.</p>
 <p><b>Color</b> - Lists the color of the animal.</p>
 
-<h5>Dependant Variables</h5>
+<h5>Dependant Variable Definitions</h5>
 <p><b>OutcomeType</b> - Five possible values: Return to Owner, Euthanasia, Died, Transfer, Adoption.</p>
 <p><b>OutcomeSubtype</b> - The competition only specified to predict type of outcome and not the subtype.  Given that subtype 
 does not add any information useful for predictions I chose to ignore the subtype variable.</p>
 
 <h5>Variable Transformations</h5>
 <p>The code that performs the following transformations can be found in the Clean.R file.</p>
-<p>GO THROUGH ALL THE TRANSFORMATIONS IN THE FILE AND TALK ABOUT THEM.</p>
+
+<p><b>Name</b> - Instead of using the acutal name of the animal I changed the variable to indicate whether the animal was given a
+name or not.</p>
+<p><b>AgeuponOutcome</b> - The AgeuponOutcome was originally given in terms of days, weeks, months, and years.  I modified the variable to be measured
+in days and changed the name to be Age.  Any animals that did not have an age were given an age of zero, within the training data 
+set there were 18 animals with no age.  Note, there were 22 animals with an age of 0 years.  For these animals I also made their age
+0.</p>
 
     <h3><b>Exploratory Data Analysis</b></h3>
 <br>
