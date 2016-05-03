@@ -63,10 +63,24 @@ does not add any information useful for predictions I chose to ignore the subtyp
 
 <p><b>Name</b> - Instead of using the acutal name of the animal I changed the variable to indicate whether the animal was given a
 name or not.</p>
+<p><b>SexuponOutcome</b> - This variable contains two peices of information.  The first peice describes whether the animal is male/female and the
+other while the other describes whether the animal has been spayed/neutered.  I pulled out the Spayed/Neutered information into its 
+own variable called IsFixed, where a value of "Yes" denotes that the animail has been spayed/neutered while "No" denotes the animail 
+has been left intact.  I also pulled out the male/female information into its own variable called Sex that has the values of "Male" 
+and "Female".  There was only one NA value within the SexuponOutcome variable.  I set this observation to be "Unknown".</p>
 <p><b>AgeuponOutcome</b> - The AgeuponOutcome was originally given in terms of days, weeks, months, and years.  I modified the variable to be measured
 in days and changed the name to be Age.  Any animals that did not have an age were given an age of zero, within the training data 
 set there were 18 animals with no age.  Note, there were 22 animals with an age of 0 years.  For these animals I also made their age
 0.</p>
+<p><b>Breed</b> - In total there were 1,380 unique types of breeds listed in the data set.  To reduce the number of types to a more 
+managable size I made two new variables.  The first is called MixBreed which describes whether the animal is a mix of two or more breeds. 
+The other variable is called MainBreed which was created by taking the first breed listed in the mix.  For example, 
+"Cardigan Welsh Corgi/Australian Cattle Dog" would be turned into "Cardigan Welsh Corgi".  After this transformation MainBreed only 
+contains 68 unique breeds.</p>
+<p><b>Color</b> - This was another variable that contained a lot of unique types.  There were 366 different types of colors listed 
+in the data set.  To reduce this number down I used the same method as I did for Breed.  I created a new variable that described
+whether the color was mixed called MixColor.  I also created a variable called MainColor that was created in the same way as 
+MainBreed.</p>
 
     <h3><b>Exploratory Data Analysis</b></h3>
 <br>
