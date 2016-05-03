@@ -12,7 +12,7 @@ require(gbm)
 #Split data into Train and Validation
 ######
   split_data = function(data){
-    idx = createDataPartition(data$OutcomeType,p=.95,list=FALSE)
+    idx = createDataPartition(data$OutcomeType,p=.75,list=FALSE)
     ls = list(data[idx, ],data[-idx, ])
     names(ls) = c("Train","Validation")
     return(ls)
@@ -44,8 +44,7 @@ require(gbm)
 ######
 #Build Random Forest Model
 ######
-  build_RF = function(){
-    set.seed(624)
+  build_rf = function(){
     load("train_clean.RData")
     #Combine the lowest categories to get to 53 categories for MainBreed
     s = sort(table(train$MainBreed))
@@ -67,8 +66,7 @@ require(gbm)
 #####
 #Build Naive Bayes Model
 #####
-  build_Bayes = function(){
-    set.seed(624)
+  build_bayes = function(){
     load("train_clean.RData")
     seg_data = split_data(train)
     bayes = naiveBayes(OutcomeType ~ .,
@@ -80,8 +78,7 @@ require(gbm)
 #####
 #Build Neural Net Model
 #####
-  build_Net = function(){
-    set.seed(624)
+  build_net = function(){
     load("train_clean.RData")
     #Load data and start h2o instance
     localh2o = h2o.init(ip = "localhost", port = 54321, startH2O = TRUE, max_mem_size = "6g" )
@@ -104,8 +101,7 @@ require(gbm)
 #####
 #Build Logistic Regression Model
 #####
-  build_Logist = function(){
-    set.seed(624)
+  build_logistic = function(){
     load("train_clean.RData")
     #Combine the bottom enumerations for the Color and Breed variables
     #such that the bottom types make up 20% of the total observations
@@ -113,18 +109,16 @@ require(gbm)
     colors = names(sort(table(train$MainColor),decreasing=TRUE))[1:8]
     train$MainColor = as.character(train$MainColor)
     train$MainBreed = as.character(train$MainBreed)
-    l_train = train %>%
+    train = train %>%
                 mutate(MainBreed = ifelse(MainBreed %in% breeds,MainBreed,"Other")) %>%
                 mutate(MainColor = ifelse(MainColor %in% colors,MainColor,"Other"))
-    l_train$MainColor = as.factor(l_train$MainColor)
-    l_train$MainBreed = as.factor(l_train$MainBreed)
+    train$MainColor = as.factor(train$MainColor)
+    train$MainBreed = as.factor(train$MainBreed)
     
     #Build model
-    logistic = multinom(OutcomeType ~ .,data=l_train[,c(-1,-3)])
-    
-    #Calculate p-values
-    z = summary(logistic)$coefficients/summary(logistic)$standard.errors
-    p_values = (1 - pnorm(z,0,1))*2
+    seg_data = split_data(train)
+    logistic = multinom(OutcomeType ~ .,data=seg_data[[1]][,c(-1,-3)])
+    eval_model(logistic,seg_data[[2]])
     return(logistic)
   }
   
@@ -132,7 +126,7 @@ require(gbm)
 #####
 #Build K-NN Model
 #####
-  build_NN = function(){
+  build_nn = function(){
     load("train_clean.RData")
     #Transform variables into numbers
     k_train = train
@@ -155,8 +149,7 @@ require(gbm)
 #####
 #Build GBM Model
 #####  
-  build_GBM = function(){
-    set.seed(624)
+  build_gbm = function(){
     load("train_clean.RData")
     seg_data = split_data(train)
     
