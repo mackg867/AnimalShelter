@@ -3,17 +3,17 @@ library(dplyr)
 #####
 #Load Data
 #####
-setwd(".../Animal Shelter Competition")
-train <- read.csv("train.csv",stringsAsFactors=FALSE)
-test <- read.csv("test.csv",stringsAsFactors=FALSE)
+  setwd(".../Animal Shelter Competition")
+  train <- read.csv("train.csv",stringsAsFactors=FALSE)
+  test <- read.csv("test.csv",stringsAsFactors=FALSE)
 
 #####
 #Prep Data and Combine Test and Train Sets
 #####
-names(test)[1] = "AnimalID"
-test$AnimalID = as.character(test$AnimalID)
-full = bind_rows(train,test)
-full = as.data.frame(full)
+  names(test)[1] = "AnimalID"
+  test$AnimalID = as.character(test$AnimalID)
+  full = bind_rows(train,test)
+  full = as.data.frame(full)
 
 #####
 #Transform AgeUponOutcome
