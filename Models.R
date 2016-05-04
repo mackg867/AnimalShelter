@@ -104,9 +104,9 @@ require(gbm)
   build_logistic = function(){
     load("train_clean.RData")
     #Combine the bottom enumerations for the Color and Breed variables
-    #such that the bottom types make up 20% of the total observations
-    breeds = names(sort(table(train$MainBreed),decreasing=TRUE))[1:13]
-    colors = names(sort(table(train$MainColor),decreasing=TRUE))[1:8]
+    #so that only the top three remain
+    breeds = names(sort(table(train$MainBreed),decreasing=TRUE))[1:3]
+    colors = names(sort(table(train$MainColor),decreasing=TRUE))[1:3]
     train$MainColor = as.character(train$MainColor)
     train$MainBreed = as.character(train$MainBreed)
     train = train %>%
@@ -114,6 +114,9 @@ require(gbm)
                 mutate(MainColor = ifelse(MainColor %in% colors,MainColor,"Other"))
     train$MainColor = as.factor(train$MainColor)
     train$MainBreed = as.factor(train$MainBreed)
+    
+    #This step is temporary and should be deleted
+    train = train %>% select(-MainColor) %>% select(-MainBreed) %>% select(-MixColor) %>% select(-MixBreed)
     
     #Build model
     seg_data = split_data(train)

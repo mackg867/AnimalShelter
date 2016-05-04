@@ -3,17 +3,17 @@ library(dplyr)
 #####
 #Load Data
 #####
-  setwd("C:/Users/mginithan/Desktop/Kaggle/Animal Shelter")
-  train <- read.csv("train.csv",stringsAsFactors=FALSE)
-  test <- read.csv("test.csv",stringsAsFactors=FALSE)
+setwd("C:/Users/mginithan/Desktop/Kaggle/Animal Shelter")
+train <- read.csv("train.csv",stringsAsFactors=FALSE)
+test <- read.csv("test.csv",stringsAsFactors=FALSE)
 
 #####
 #Prep Data and Combine Test and Train Sets
 #####
-  names(test)[1] = "AnimalID"
-  test$AnimalID = as.character(test$AnimalID)
-  full = bind_rows(train,test)
-  full = as.data.frame(full)
+names(test)[1] = "AnimalID"
+test$AnimalID = as.character(test$AnimalID)
+full = bind_rows(train,test)
+full = as.data.frame(full)
 
 #####
 #Transform AgeUponOutcome
@@ -41,13 +41,15 @@ library(dplyr)
   full = full %>%
         mutate(Sex = ifelse(regexpr("Male",SexuponOutcome)>0,"Male",SexuponOutcome)) %>%
         mutate(Sex = ifelse(regexpr("Female",SexuponOutcome)>0,"Female",Sex)) %>%
-        mutate(Sex = ifelse(regexpr("Unknown",SexuponOutcome)>0,"Unknown",Sex))
+        mutate(Sex = ifelse(regexpr("Unknown",SexuponOutcome)>0,"Unknown",Sex)) %>%
+        mutate(Sex = ifelse(nchar(SexuponOutcome)==0,"Unknown",Sex))
   
   full = full %>%
         mutate(IsFixed = ifelse(regexpr("Intact",SexuponOutcome)>0,"No",SexuponOutcome)) %>%
         mutate(IsFixed = ifelse(regexpr("Neutered",SexuponOutcome)>0,"Yes",IsFixed)) %>%
         mutate(IsFixed = ifelse(regexpr("Spayed",SexuponOutcome)>0,"Yes",IsFixed)) %>%
-        mutate(IsFixed = ifelse(regexpr("Unknown",SexuponOutcome)>0,"Unkown",IsFixed))
+        mutate(IsFixed = ifelse(regexpr("Unknown",SexuponOutcome)>0,"Unknown",IsFixed)) %>%
+        mutate(IsFixed = ifelse(nchar(SexuponOutcome)==0,"Unknown",IsFixed))
   
   full = full %>%
         select(-SexuponOutcome)
