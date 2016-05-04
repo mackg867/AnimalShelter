@@ -106,7 +106,9 @@ shock no one people tend to adopt younger animals, especailly kittens.</p>
 <p>Neural Net (2 Layers of 20 nodes each) - 0.6325</p>
 <p>Gradient Boosting Machine (GBM) - 0.635</p>
 <br>
-<p>The specifics of the GBM are as follows</p>
+<p>Since the GBM performed the best on the hold out sample I used it as my submission to the Kaggle competition.  The following
+table displays the true positive rate and the true negative rate for each outcome.  Notice that the model has trouble identifying
+the outcomes of Died and Euthanasia which isn't too surprising since those outcomes have the lowest occurances in the data set.</p>
 <table style="width:100%">
    <tr>
     <td> </td>
@@ -133,7 +135,36 @@ shock no one people tend to adopt younger animals, especailly kittens.</p>
      <td>0.87</td>
    </tr>
 </table> 
-
+<br>
+<p>Although the GBM provides the best predictive performance on out of sample data it doesn't offer interprebality.  To gain a
+better understanding between the independant variables and the outcomes I drilled further into the logistic model.  Since the 
+point of this analysis is interpretability and not strictly performance I took only the top three occuring types for the variables 
+MainColor and MainBreed.  All other types were rolled into the type of "Other".  The top three breeds are "Domestic Shorthair", 
+"Chihuahua Shorthair", and "Pit Bull".  The top three colors were "Black", "White", and "Brown".  The following table lists the 
+coefficients for the logistic model.</p>
+<table style="width:100%">
+   <tr>
+    <td> </td>
+     <td>Died</td>
+     <td>Euthanasia</td>
+     <td>Return to Owner</td>
+     <td>Transfer</td>
+   </tr>
+  <tr>
+    <td>Intercept</td>
+     <td>1.19</td> 
+     <td>-0.72</td>
+     <td>6.2</td>
+     <td>1.3</td>
+   </tr>
+   <tr>
+    <td>Name - Yes</td>
+     <td>-0.72</td> 
+     <td>-1.0</td>
+     <td>1.7</td>
+     <td>-0.7</td>
+   </tr>
+</table> 
 
 
       <footer class="site-footer">
