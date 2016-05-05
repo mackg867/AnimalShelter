@@ -105,10 +105,10 @@ shock no one people tend to adopt younger animals, especailly kittens.</p>
 <p>Random Forest - 0.631</p>
 <p>Neural Net (2 Layers of 20 nodes each) - 0.6325</p>
 <p>Gradient Boosting Machine (GBM) - 0.635</p>
-<br>
+
 <p>Since the GBM performed the best on the hold out sample I used it as my submission to the Kaggle competition.  It gives a 58% 
-increase in accuracy over just guessing the most common outcome.  Two months before the competition closes my submission resulted in 
-a score in the 50 percentile.  To gain insight into the behavior the following table displays the true positive rate and the true negative 
+increase in accuracy over just guessing the most common outcome.  Two months before the competition closes my submission placed in the 50 percentile.  
+To gain insight into the behavior of the model I created the following table that displays the true positive rate and the true negative 
 rate for each outcome.  Notice that the model has trouble identifying the outcomes of Died and Euthanasia which isn't too surprising since those 
 outcomes have the lowest occurances in the data set.</p>
 <table style="width:100%">
@@ -139,9 +139,9 @@ outcomes have the lowest occurances in the data set.</p>
 </table> 
 
 <p>Although the GBM provides the best predictive performance on out of sample data it doesn't offer much in terms of 
-interprebality.  To gain a better understanding between the independant variables and the outcomes I drilled further into a 
-modified logistic model.  For the sake of brevity I dropped the variables relating to color and breed.  If I was doing a complete analysis I 
-would include this information.  Below is a table of the coefficients of the resulting model.</p>
+interprebality.  To gain a better understanding between the independant variables and the outcomes you can use the 
+coefficients of the logistic model.  For the sake of brevity I dropped the variables relating to color and breed.  
+If I was doing a complete analysis I would include this information.  Below is a table of the coefficients of the model.</p>
 <br>
 <table style="width:100%">
    <tr>
@@ -203,12 +203,13 @@ would include this information.  Below is a table of the coefficients of the res
 <br>
 <p>Notice that there are only 4 outcomes displayed in the table  The reason for this is that the fifth one (Adoption) is used as a 
 baseline for the other outcomes.  The coefficients for the variables used in the model describe how the probability of being in 
-the specified variable changes as it relates to Adoption.  For example, the coefficient for the AnimalType-Dog indicator variable 
+the specified variable changes as it relates to Adoption.  For example, the coefficient for the AnimalType Dog indicator variable 
 is -.67 for the outcome of Died.  Since the coefficient is negative this means that the probablity of dying decreases if the animal is 
-a dog.  Conversely, if a coefficient is positive then the probability increases for that variable for the given outcome.  One way 
-to determine how the independant variables affect a specific outcome is to transform the dependant variable into a binary outcome.  
-I did this for the outcome of Euthanasia.  After the transformation the OutcomeType variable is made of two outcomes, either 
-Euthanasia or NotEuthanasia.  The resulting model coefficients are as follows.</p>
+a dog.  Conversely, if a coefficient is positive then the probability increases for that variable for the given outcome.  You can perform 
+some simple algebra on the coefficients to determine the acutal change in probablity due to a factor, but sometimes it's enough to 
+know how the probability will change.  One way to determine how the independant variables affect a specific outcome is to transform the 
+dependant variable into a binary outcome. I did this for the outcome of Euthanasia. After the transformation the OutcomeType variable is made 
+of two outcomes, either Euthanasia or NotEuthanasia. The resulting model coefficients are as follows.</p>
 <br>
 <table>
    <tr>
@@ -234,15 +235,13 @@ Euthanasia or NotEuthanasia.  The resulting model coefficients are as follows.</
      <td>-1.5</td>
    </tr>
 </table>
-
+<br>
 <p>Another way to determine variable importance is to use the random forest model.  R tracks the importance of independant variables 
-during the model building process.  Once finished it gives you a plot that shows which variables were most important for prediction. 
+during the model building process.  Once finished, it gives you a plot that shows which variables were most important for prediction. 
 The plot below shows which of the variables used in the animal shleter data is most important.  The larger the MeanDecreaseGini the 
-better the variable is for prediction.  Notice that the MainColor variable is shown to be the third most important variable while 
-in the logistic model it was shown to be not significant at the 0.05 level.  This gives evidence that there is colinearity between 
-the independant variables.  Also notice that Age is listed as the second most useful variable for prediction but the coefficient 
+better the variable is for prediction.  Notice that Age is listed as the second most useful variable for prediction but the coefficient 
 for Age in the multinomial model was esstientailly 0, which suggests that the variable is not important.  Remember that Age was 
-measured in days and therefore the coefficient relates to the change in probability <b>per day</b>.  For interpretation reasons 
+measured in days and therefore the coefficient is related to the change in probability <b>per day</b>.  For interpretation reasons 
 it would probably be useful to measure Age in years so that the coefficient becomes more meaningful. </p>
 <img src="VarImp.jpeg" width="894" height="547">
 
