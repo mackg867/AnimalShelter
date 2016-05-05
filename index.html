@@ -249,9 +249,56 @@ coefficients for the logistic model.</p>
 baseline for the other outcomes.  The coefficients for the variables used in the model describe how the probability of being in 
 the specified variable changes as it relates to Adoption.  For example, the coefficient for the AnimalType-Dog indicator variable 
 is -.67 for the outcome of Died.  Since the coefficient is negative this means that the probablity of dying decreases if the animal is 
-a dog.  Conversely, if a coefficient is positive then the probability increases for that variable for the given outcome.</p>
+a dog.  Conversely, if a coefficient is positive then the probability increases for that variable for the given outcome.  One way 
+to determine how the independant variables affect a specific outcome is to transform the dependant variable into a binary outcome.  
+I did this for the outcome of Euthanasia.  After the transformation the OutcomeType variable is made of two outcomes, either 
+Euthanasia or NotEuthanasia.  The resulting model coefficients are as follows.</p>
+<br>
+<table>
+   <tr>
+     <td>Name</td>
+     <td>Value</td>  
+   </tr>
+   <tr>
+     <td>Intercept</td>
+     <td>2.2</td>  
+   </tr>
+   <tr>
+     <td>Name Yes</td>
+     <td>0.81</td>  
+   </tr>
+   <tr>
+     <td>AnimalType Dog</td>
+     <td>-0.21</td>  
+   </tr>
+   <tr>
+     <td>Age</td>
+     <td>0.0</td>  
+   </tr>
+   <tr>
+     <td>Sex Male</td>
+     <td>-0.27</td>  
+   </tr>
+   <tr>
+     <td>Sex Unknown</td>
+     <td>0.13</td>  
+   </tr>
+   <tr>
+     <td>IsFixed Unknown</td>
+     <td>0.13</td>  
+   </tr>
+   <tr>
+     <td>IsFixed Yes</td>
+     <td>1.5</td>  
+   </tr>
+</table>
 
-<p>Another way to determine variable importance is to </p>
+<p>Another way to determine variable importance is to use the random forest model.  R tracks the importance of independant variables 
+during the model building process.  Once finished it gives you a plot that shows which variables were most important for prediction. 
+The plot below shows which of the variables used in the animal shleter data is most important.  The larger the MeanDecreaseGini the 
+better the variable is for prediction.  Notice that the MainColor variable is shown to be the third most important variable while 
+in the logistic model it was shown to be not significant at the 0.05 level.  This gives evidence that there is colinearity between 
+the independant variables.  </p>
 <img src="VarImp.jpeg" width="894" height="547">
 
       <footer class="site-footer">
