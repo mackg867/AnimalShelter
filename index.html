@@ -68,38 +68,36 @@ name or not.</p>
 while the other describes whether the animal has been spayed/neutered.  I pulled out the Spayed/Neutered information into its 
 own variable called IsFixed, where a value of "Yes" denotes that the animail has been spayed/neutered while "No" denotes the animal 
 has been left intact.  I also pulled out the male/female information into its own variable called Sex that has the values of "Male" 
-and "Female".  There was only one NA value within the SexuponOutcome variable.  I set this observation to be "Unknown".</p>
+and "Female".  There was only one NA value within the SexuponOutcome variable.  I included this observation with the other unknown obeservations.</p>
 <p><b>AgeuponOutcome</b> - The AgeuponOutcome was originally given in terms of days, weeks, months, and years.  I modified the variable to be measured
 in days and changed the name to be Age.  Any animals that did not have an age were given an age of zero, within the training data 
-set there were 18 animals with no age.  Note, there were 22 animals with an age of 0 years.  For these animals I also made their age
-0.</p>
+set there were 18 animals with no age.  Note, there were also 22 animals with an age of 0 years.</p>
 <p><b>Breed</b> - In total there were 1,380 unique types of breeds listed in the data set.  To reduce the number of types to a more 
 managable size I made two new variables.  The first is called MixBreed which describes whether the animal is a mix of two or more breeds. 
 The other variable is called MainBreed which was created by taking the first breed listed in the mix.  For example, 
-"Cardigan Welsh Corgi/Australian Cattle Dog" would be turned into "Cardigan Welsh Corgi".  After this transformation MainBreed only 
-contains 68 unique breeds.</p>
+"Cardigan Welsh Corgi/Australian Cattle Dog" would be turned into "Cardigan Welsh Corgi".  The transformation resulted in 68 unique breeds.</p>
 <p><b>Color</b> - This was another variable that contained a lot of unique types.  There were 366 different types of colors listed 
 in the data set.  To reduce this number down I used the same method as I did for Breed.  I created a new variable that described
 whether the color was mixed called MixColor.  I also created a variable called MainColor that was created in the same way as 
-MainBreed.</p>
+MainBreed.  The transformation resulted in 26 unique colors</p>
 
     <h3><b>Exploratory Data Analysis</b></h3>
 
 <p>The following graphic was made using Tableau Public.  You are encourage to explore the different plots to see what patterns you can 
 discover.  Notice that even though I did not inlcude the Date/Time variable in the predictive model I included 
-it in some of the plots.  Including Date/Time allows you to see any trends in the data.  The first plot shows a seasonal trend to outcomes.  
+it in some of the plots.  Viewing Date/Time in this way allows you to see any historical trends in the data.  The first plot shows a seasonal trend to outcomes.  
 There are many more outcomes during the summer months than the winter months.  If you further breakdown the data you will notice that 
 this trend is solely due to the outcomes from cats.</p>
 
 <p>Some other interesting things to note.  Dogs are more likely to be returned to their owner while cats are more likely to die.  
 The most likely outcome for a cat is to be transfered while dogs are most likely to be adopted.  And an observation that will 
-shock no one people tend to adopt younger animals, especailly kittens.</p>
+shock no one, people tend to adopt younger animals, especailly kittens.</p>
 <br><br>
 
 <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 1004px; height: 869px;'><noscript><a href=''><img alt='Animal Shelter Data ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CB&#47;CB644NFHZ&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' width='1004' height='869' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='path' value='shared&#47;CB644NFHZ' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CB&#47;CB644NFHZ&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='showTabs' value='y' /></object></div>
 
     <h3><b>Modeling Procedure and Results</b></h3>
-<p>For this problem I built 5 different predictive models.  They are listed below along with their overall accuracy on the hold sample.</p>
+<p>For this problem I built 5 different predictive models.  They are listed below along with their overall accuracy on the hold out sample.</p>
 <p>Naive Bayes - 0.6034</p>
 <p>Multinomial Logistic - 0.622</p>
 <p>Random Forest - 0.631</p>
@@ -201,15 +199,15 @@ If I was doing a complete analysis I would include this information.  Below is a
    </tr>
 </table> 
 <br>
-<p>Notice that there are only 4 outcomes displayed in the table  The reason for this is that the fifth one (Adoption) is used as a 
+<p>Notice that there are only 4 outcomes displayed in the table.  The reason for this is that the fifth outcome (Adoption) is used as a 
 baseline for the other outcomes.  The coefficients for the variables used in the model describe how the probability of being in 
-the specified variable changes as it relates to Adoption.  For example, the coefficient for the AnimalType Dog indicator variable 
+the specified variable changes as it relates to Adoption when the independant variable is altered.  For example, the coefficient for the AnimalType-Dog indicator variable 
 is -.67 for the outcome of Died.  Since the coefficient is negative this means that the probablity of dying decreases if the animal is 
 a dog.  Conversely, if a coefficient is positive then the probability increases for that variable for the given outcome.  You can perform 
 some simple algebra on the coefficients to determine the acutal change in probablity due to a factor, but sometimes it's enough to 
-know how the probability will change.  One way to determine how the independant variables affect a specific outcome is to transform the 
+know how the probability will change.  Another way to determine how the independant variables affect a specific outcome is to transform the 
 dependant variable into a binary outcome. I did this for the outcome of Euthanasia. After the transformation the OutcomeType variable is made 
-of two outcomes, either Euthanasia or NotEuthanasia. The resulting model coefficients are as follows.</p>
+of just two outcomes, either Euthanasia or NotEuthanasia. The resulting model coefficients are as follows.</p>
 <br>
 <table>
    <tr>
@@ -236,7 +234,7 @@ of two outcomes, either Euthanasia or NotEuthanasia. The resulting model coeffic
    </tr>
 </table>
 <br>
-<p>Another way to determine variable importance is to use the random forest model.  R tracks the importance of independant variables 
+<p>Another way to determine variable importance is to use the random forest model.  R tracks the predicitve performance of independant variables 
 during the model building process.  Once finished, it gives you a plot that shows which variables were most important for prediction. 
 The plot below shows which of the variables used in the animal shleter data is most important.  The larger the MeanDecreaseGini the 
 better the variable is for prediction.  Notice that Age is listed as the second most useful variable for prediction but the coefficient 
@@ -252,11 +250,11 @@ an animal is fixed then their chances of being adopted increase.  Since this fac
 conditional relationship, the probability of adoption <b>given</b> the animal has been fixed is higher then the probability 
 of being adopted in general.  But this does not necessarily mean there is a causul relationship between getting fixed and being adopted.  
 A superficail analysis would lead you to believe that in order to increase adoptions you should fix animals beforehand.  
-And it does seem very reasonable that if an animal has already been fixed that people are more likely to adopt them since this reduces the 
+It does seem very reasonable that if an animal has already been fixed that people are more likely to adopt them since this reduces the 
 cost of ownership.  Although I can imagine a scenario where midway through the data collection process the animal shelter required 
-that before an animal be adopted they must be fixed.  A situation such as this would show a relationship between getting fixed and 
+that before someone adopts an animal they must be fixed first.  A situation such as this would show a relationship between getting fixed and 
 being adopted but you couldn't necessarily say that fixing an animal increases their chances of being adopted.  
-Further analysis on how the data was collected and how the animal shelter is run before any conclusive casual relationships can be made.</p>
+Further analysis on how the data was collected and how the animal shelter is run is needed before any conclusive casual relationships can be made.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/mackg867/AnimalShelter">Animalshelter</a> is maintained by <a href="https://github.com/mackg867">mackg867</a>.</span>
