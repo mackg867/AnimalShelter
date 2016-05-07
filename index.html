@@ -22,8 +22,11 @@
 
     <h3><b>Background</b></h3>
     
-<p>This webpage documents my work with regards to the Shelter Animal Outcomes Kaggle competition.  The following is the introduction
-to the competition provided by Kaggle.</p>
+<p>This webpage documents my work with regards to the Shelter Animal Outcomes Kaggle competition.  My main motivitaion for this project 
+was to learn to use Tableau, the dplyr package, and version control to do data analysis.  In past projects my data analysis workflow 
+had been a bunch of cowboy code in one huge script.  This setup was a nightmare to maintain and after a certain point it was 
+impossible to change an assumption I had made in the beginning of the workflow.  For this project I strove to make sure my code was 
+modular and clean.  The following is the introduction to the competition provided by Kaggle.</p>
 
 <div style="font-family:chicago;margin-left:1em;">Every year, approximately 7.6 million companion animals end up in US shelters. 
 Many animals are given up as unwanted by their owners, while others are picked up after getting lost or taken out of cruelty situations. 
@@ -49,15 +52,21 @@ submissions.</p>
 of the outcome.  Going off this assumption I did not include this variable in my model because we don't have any knowledge of when
 an outcome will happen before it happens.</p>
 <p><b>AnimalType</b> - Lists whether the animal is a cat or dog.</p>
-<p><b>SexuponOutcome</b> - Describes whether the animal is male/female and if it has been neutured/spayed.</p>
-<p><b>AgeuponOutcome</b> - Age of the animal when the outcome event happened.</p>
+<p><b>SexuponOutcome</b> - Describes whether the animal is male/female and if it has been neutured/spayed.  An argument can be made 
+that the neutured/spayed information should not be used since this information was documented when the outcome occurs.  We don't know 
+the state of the animal before the outcome occured and how this state affected what happened.  That being said I chose to include 
+the information in my analysis to see if there were any interesting patterns in the data set.</p>
+<p><b>AgeuponOutcome</b> - Age of the animal when the outcome event happened.  The same argument can be made with AgeuponOutcome as 
+the spayed/neutured information.  I assumed that the change in age of the animal while in the shelter was negligable and therefore 
+included this variable.</p>
 <p><b>Breed</b> - Lists the breed of the animal.</p>
 <p><b>Color</b> - Lists the color of the animal.</p>
 
 <h5>Dependant Variable Definitions</h5>
 <p><b>OutcomeType</b> - Five possible values: Return to Owner, Euthanasia, Died, Transfer, Adoption.</p>
-<p><b>OutcomeSubtype</b> - The competition only specified to predict type of outcome and not the subtype.  Given that subtype 
-does not add any information useful for predictions I chose to ignore the subtype variable.</p>
+<p><b>OutcomeSubtype</b> - Gives further information about the type of outcome that occured.  
+The competition only specified to predict type of outcome and not the subtype.  For simplicity I chose to 
+drop this variable.</p>
 
 <h5>Variable Transformations</h5>
 <p>The code that performs the following transformations can be found in the Clean.R file.</p>
@@ -255,6 +264,7 @@ cost of ownership.  Although I can imagine a scenario where midway through the d
 that before someone adopts an animal they must be fixed first.  A situation such as this would show a relationship between getting fixed and 
 being adopted but you couldn't necessarily say that fixing an animal increases their chances of being adopted.  
 Further analysis on how the data was collected and how the animal shelter is run is needed before any conclusive casual relationships can be made.</p>
+
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/mackg867/AnimalShelter">Animalshelter</a> is maintained by <a href="https://github.com/mackg867">mackg867</a>.</span>
