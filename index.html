@@ -26,7 +26,9 @@
 was to learn to use Tableau, the dplyr package, and version control to do data analysis.  In past projects my data analysis workflow 
 had been a bunch of cowboy code in one huge script.  This setup was a nightmare to maintain and after a certain point it was 
 impossible to change an assumption I had made in the beginning of the workflow.  For this project I strove to make sure my code was 
-modular and clean.  The following is the introduction to the competition provided by Kaggle.</p>
+modular and clean.</p>
+
+<p>The following is the introduction to the competition provided by Kaggle.</p>
 
 <div style="font-family:chicago;margin-left:1em;">Every year, approximately 7.6 million companion animals end up in US shelters. 
 Many animals are given up as unwanted by their owners, while others are picked up after getting lost or taken out of cruelty situations. 
@@ -36,8 +38,8 @@ We also believe this dataset can help us understand trends in animal outcomes. T
 </div>
 
 <p>The data provided for the competition was split between a training set and a test set.  The training set identifies the outcome for each
-observation while the test set does not.  Competitors are tasked with building a predictive model with the training set and then applying the model
-to the test set.  Kaggle then scores the performance of the model and then posts the score on the leaderboard with the other competitors
+animal while the test set does not.  Competitors are tasked with building a predictive model with the training set and then applying the model
+to the test set.  Kaggle scores the performance of the model and then posts the score on the leaderboard with the other competitors
 submissions.</p>
 
     <h3><b>Data Munging</b></h3>
@@ -53,8 +55,8 @@ of the outcome.  Going off this assumption I did not include this variable in my
 an outcome will happen before it happens.</p>
 <p><b>AnimalType</b> - Lists whether the animal is a cat or dog.</p>
 <p><b>SexuponOutcome</b> - Describes whether the animal is male/female and if it has been neutured/spayed.  An argument can be made 
-that the neutured/spayed information should not be used since this information was documented when the outcome occurs.  We don't know 
-the state of the animal before the outcome occured and how this state affected what happened.  That being said I chose to include 
+that the neutured/spayed information should not be used since this information was documented when the outcome occurs.  We don't know when 
+the animal had been fixed and how that affected the outcome.  That being said I chose to include 
 the information in my analysis to see if there were any interesting patterns in the data set.</p>
 <p><b>AgeuponOutcome</b> - Age of the animal when the outcome event happened.  The same argument can be made with AgeuponOutcome as 
 the spayed/neutured information.  I assumed that the change in age of the animal while in the shelter was negligable and therefore 
@@ -63,7 +65,8 @@ included this variable.</p>
 <p><b>Color</b> - Lists the color of the animal.</p>
 
 <h5>Dependant Variable Definitions</h5>
-<p><b>OutcomeType</b> - Five possible values: Return to Owner, Euthanasia, Died, Transfer, Adoption.</p>
+<p><b>OutcomeType</b> - Describes what happened to the animal.  
+Five possible values: Return to Owner, Euthanasia, Died, Transfer, Adoption.</p>
 <p><b>OutcomeSubtype</b> - Gives further information about the type of outcome that occured.  
 The competition only specified to predict type of outcome and not the subtype.  For simplicity I chose to 
 drop this variable.</p>
@@ -71,13 +74,12 @@ drop this variable.</p>
 <h5>Variable Transformations</h5>
 <p>The code that performs the following transformations can be found in the Clean.R file.</p>
 
-<p><b>Name</b> - Instead of using the acutal name of the animal I changed the variable to indicate whether the animal was given a
+<p><b>Name</b> - Instead of using the acutal name of the animal I changed the variable to indicate whether the animal had a
 name or not.</p>
-<p><b>SexuponOutcome</b> - This variable contains two peices of information.  The first peice describes whether the animal is male/female 
-while the other describes whether the animal has been spayed/neutered.  I pulled out the Spayed/Neutered information into its 
-own variable called IsFixed, where a value of "Yes" denotes that the animail has been spayed/neutered while "No" denotes the animal 
-has been left intact.  I also pulled out the male/female information into its own variable called Sex that has the values of "Male" 
-and "Female".  There was only one NA value within the SexuponOutcome variable.  I included this observation with the other unknown obeservations.</p>
+<p><b>SexuponOutcome</b> - I pulled out the Spayed/Neutered information into its 
+own variable called IsFixed, where a value of Yes denotes that the animail has been spayed/neutered while No denotes the animal 
+has been left intact.  I also pulled out the male/female information into its own variable called Sex that has the values of Male 
+and Female.  There was only one NA value within the SexuponOutcome variable.  I included this observation with the other unknown obeservations.</p>
 <p><b>AgeuponOutcome</b> - The AgeuponOutcome was originally given in terms of days, weeks, months, and years.  I modified the variable to be measured
 in days and changed the name to be Age.  Any animals that did not have an age were given an age of zero, within the training data 
 set there were 18 animals with no age.  Note, there were also 22 animals with an age of 0 years.</p>
