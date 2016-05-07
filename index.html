@@ -44,20 +44,19 @@ submissions.</p>
 
     <h3><b>Data Munging</b></h3>
     
-    <h4>Data Description</h4>
 <p>Number of Training Observations: 26,729</p>
 <p>Number of Test Observations: 11,456</p>
 
 <h5>Independant Variable Definitions</h5>
 <p><b>Name</b> - Lists the name of the animal.</p>
-<p><b>DateTime</b> - No information is provided as to what the date/time signifies but for my analysis I assumed it was the date time
+<p><b>DateTime</b> - No information is provided as to what the date/time signifies but for my analysis I assumed it was the date/time
 of the outcome.  Going off this assumption I did not include this variable in my model because we don't have any knowledge of when
 an outcome will happen before it happens.</p>
 <p><b>AnimalType</b> - Lists whether the animal is a cat or dog.</p>
 <p><b>SexuponOutcome</b> - Describes whether the animal is male/female and if it has been neutured/spayed.  An argument can be made 
-that the neutured/spayed information should not be used since this information was documented when the outcome occurs.  We don't know when 
+that the neutured/spayed information should not be used in the model since this information was documented when the outcome occurs.  We don't know when 
 the animal had been fixed and how that affected the outcome.  That being said I chose to include 
-the information in my analysis to see if there were any interesting patterns in the data set.</p>
+the information in my analysis to see if there were any interesting patterns regarding this information.</p>
 <p><b>AgeuponOutcome</b> - Age of the animal when the outcome event happened.  The same argument can be made with AgeuponOutcome as 
 the spayed/neutured information.  I assumed that the change in age of the animal while in the shelter was negligable and therefore 
 included this variable.</p>
@@ -76,14 +75,14 @@ drop this variable.</p>
 
 <p><b>Name</b> - Instead of using the acutal name of the animal I changed the variable to indicate whether the animal had a
 name or not.</p>
-<p><b>SexuponOutcome</b> - I pulled out the Spayed/Neutered information into its 
-own variable called IsFixed, where a value of Yes denotes that the animail has been spayed/neutered while No denotes the animal 
+<p><b>SexuponOutcome</b> - I pulled out the spayed/neutered information into its 
+own variable called IsFixed, where a value of Yes denotes that the animal has been spayed/neutered while No denotes the animal 
 has been left intact.  I also pulled out the male/female information into its own variable called Sex that has the values of Male 
 and Female.  There was only one NA value within the SexuponOutcome variable.  I included this observation with the other unknown obeservations.</p>
 <p><b>AgeuponOutcome</b> - The AgeuponOutcome was originally given in terms of days, weeks, months, and years.  I modified the variable to be measured
 in days and changed the name to be Age.  Any animals that did not have an age were given an age of zero, within the training data 
 set there were 18 animals with no age.  Note, there were also 22 animals with an age of 0 years.</p>
-<p><b>Breed</b> - In total there were 1,380 unique types of breeds listed in the data set.  To reduce the number of types to a more 
+<p><b>Breed</b> - In total there were 1,380 unique breeds listed in the data set.  To reduce the number of breeds to a more 
 managable size I made two new variables.  The first is called MixBreed which describes whether the animal is a mix of two or more breeds. 
 The other variable is called MainBreed which was created by taking the first breed listed in the mix.  For example, 
 "Cardigan Welsh Corgi/Australian Cattle Dog" would be turned into "Cardigan Welsh Corgi".  The transformation resulted in 68 unique breeds.</p>
@@ -95,13 +94,13 @@ MainBreed.  The transformation resulted in 26 unique colors</p>
     <h3><b>Exploratory Data Analysis</b></h3>
 
 <p>The following graphic was made using Tableau Public.  You are encourage to explore the different plots to see what patterns you can 
-discover.  Notice that even though I did not inlcude the Date/Time variable in the predictive model I included 
-it in some of the plots.  Viewing Date/Time in this way allows you to see any historical trends in the data.  The first plot shows a seasonal trend to outcomes.  
+discover.  Notice that even though I did not inlcude the date/time variable in the predictive model I included 
+it in some of the plots.  Viewing date/time in this way allows you to see any historical trends in the data.  You can see that there is a seasonal trend in outcomes.  
 There are many more outcomes during the summer months than the winter months.  If you further breakdown the data you will notice that 
 this trend is solely due to the outcomes from cats.</p>
 
 <p>Some other interesting things to note.  Dogs are more likely to be returned to their owner while cats are more likely to die.  
-The most likely outcome for a cat is to be transfered while dogs are most likely to be adopted.  And an observation that will 
+The most likely outcome for a cat is to be transfered while dogs are most likely to be adopted.  An observation that will 
 shock no one, people tend to adopt younger animals, especailly kittens.</p>
 <br><br>
 
@@ -116,8 +115,8 @@ shock no one, people tend to adopt younger animals, especailly kittens.</p>
 <p>Gradient Boosting Machine (GBM) - 0.635</p>
 
 <p>Since the GBM performed the best on the hold out sample I used it as my submission to the Kaggle competition.  It gives a 58% 
-increase in accuracy over just guessing the most common outcome.  Two months before the competition closes my submission placed in the 50 percentile.  
-To gain insight into the behavior of the model I created the following table that displays the true positive rate and the true negative 
+increase in accuracy over just guessing the most common outcome.  Two months before the competition closes my submission placed in the 50th percentile.  
+To gain insight into the behavior of the GBM model I created the following table that displays the true positive rate and the true negative 
 rate for each outcome.  Notice that the model has trouble identifying the outcomes of Died and Euthanasia which isn't too surprising since those 
 outcomes have the lowest occurances in the data set.</p>
 <table style="width:100%">
@@ -147,7 +146,7 @@ outcomes have the lowest occurances in the data set.</p>
    </tr>
 </table> 
 
-<p>Although the GBM provides the best predictive performance on out of sample data it doesn't offer much in terms of 
+<p>Although the GBM provides the best predictive performance on the out of sample data it doesn't offer much in terms of 
 interprebality.  To gain a better understanding between the independant variables and the outcomes you can use the 
 coefficients of the logistic model.  For the sake of brevity I dropped the variables relating to color and breed.  
 If I was doing a complete analysis I would include this information.  Below is a table of the coefficients of the model.</p>
@@ -211,11 +210,12 @@ If I was doing a complete analysis I would include this information.  Below is a
 </table> 
 <br>
 <p>Notice that there are only 4 outcomes displayed in the table.  The reason for this is that the fifth outcome (Adoption) is used as a 
-baseline for the other outcomes.  The coefficients for the variables used in the model describe how the probability of being in 
-the specified variable changes as it relates to Adoption when the independant variable is altered.  For example, the coefficient for the AnimalType-Dog indicator variable 
+baseline for the other outcomes.  The coefficients of the model describe how the probability of the
+specified outcome changes as it relates to the outcome of Adoption when the independant variable is altered.  For example, the coefficient for the AnimalType-Dog indicator variable 
 is -.67 for the outcome of Died.  Since the coefficient is negative this means that the probablity of dying decreases if the animal is 
-a dog.  Conversely, if a coefficient is positive then the probability increases for that variable for the given outcome.  You can perform 
-some simple algebra on the coefficients to determine the acutal change in probablity due to a factor, but sometimes it's enough to 
+a dog.  Conversely, if a coefficient is positive then the probability of that outcome occuring increases relative to Adoption 
+when the independant variable is true (or increases in the case of a numerical variable).  You can perform 
+some simple algebra on the coefficients to determine the acutal change in probablity when the independant variable changes, but sometimes it's enough to 
 know how the probability will change.  Another way to determine how the independant variables affect a specific outcome is to transform the 
 dependant variable into a binary outcome. I did this for the outcome of Euthanasia. After the transformation the OutcomeType variable is made 
 of just two outcomes, either Euthanasia or NotEuthanasia. The resulting model coefficients are as follows.</p>
@@ -248,10 +248,10 @@ of just two outcomes, either Euthanasia or NotEuthanasia. The resulting model co
 <p>Another way to determine variable importance is to use the random forest model.  R tracks the predicitve performance of independant variables 
 during the model building process.  Once finished, it gives you a plot that shows which variables were most important for prediction. 
 The plot below shows which of the variables used in the animal shleter data is most important.  The larger the MeanDecreaseGini the 
-better the variable is for prediction.  Notice that Age is listed as the second most useful variable for prediction but the coefficient 
+better the variable is for prediction.  Notice that Age is listed as the second most useful variable but the coefficient 
 for Age in the multinomial model was esstientailly 0, which suggests that the variable is not important.  Remember that Age was 
 measured in days and therefore the coefficient is related to the change in probability <b>per day</b>.  For interpretation reasons 
-it would probably be useful to measure Age in years so that the coefficient becomes more meaningful. </p>
+it would probably be more useful to measure Age in years so that the coefficient becomes more meaningful. </p>
 
 <img src="VarImp.jpeg" width="894" height="547">
 
@@ -260,12 +260,12 @@ it would probably be useful to measure Age in years so that the coefficient beco
 an animal is fixed then their chances of being adopted increase.  Since this fact is coming from the models it represents a 
 conditional relationship.  Said another way, the probability of adoption <b>given</b> the animal has been fixed is higher then the probability 
 of being adopted in general.  But this does not necessarily mean there is a causul relationship between getting fixed and being adopted.  
-A superficail analysis would lead you to believe that in order to increase adoptions you should fix animals beforehand.  
+A superficial analysis would lead you to believe that in order to increase adoptions you should fix animals beforehand.  
 It does seem very reasonable that if an animal has already been fixed that people are more likely to adopt them since this reduces the 
-cost of ownership.  Although I can imagine a scenario where midway through the data collection process the animal shelter required 
-that before someone adopts an animal they must be fixed first.  A situation such as this would show a relationship between getting fixed and 
+cost of ownership.  Although, I can imagine a scenario where midway through the data collection process the animal shelter required 
+that before someone adopts an animal the animal must be fixed first.  A situation such as this would show a relationship between getting fixed and 
 being adopted but you couldn't necessarily say that fixing an animal increases their chances of being adopted.  
-Further analysis on how the data was collected and how the animal shelter is run is needed before any conclusive casual relationships can be made.</p>
+Further analysis on how the data was collected and how the animal shelter is run is needed before any conclusive casual relationships can be stated.</p>
 
 
       <footer class="site-footer">
