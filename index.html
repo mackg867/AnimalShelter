@@ -22,10 +22,10 @@
 
     <h3><b>Background</b></h3>
     
-<p>This webpage documents my work with regards to the Shelter Animal Outcomes Kaggle competition.  My main motivation for this project 
-was to learn to use Tableau, the dplyr package, and version control to do data analysis.  In past projects my data analysis workflow 
-had been a bunch of cowboy code in one huge script.  This setup was a nightmare to maintain and after a certain point it was 
-impossible to change an assumption I had made in the beginning of the workflow.  For this project I strove to make sure my code was 
+<p>This web page documents my work with regards to the Shelter Animal Outcomes Kaggle competition.  My main motivation for this project 
+was to learn to use Tableau, the dplyr package, and version control to do data analysis.  In past projects my data analysis work flow 
+had been a bunch of spaghetti code in one huge script.  This setup was a nightmare to maintain and after a certain point it was 
+impossible to change an assumption I had made in the beginning of the work flow.  For this project I strove to make sure my code was 
 modular and clean.</p>
 
 <p>The following is the introduction to the competition provided by Kaggle.</p>
@@ -129,7 +129,7 @@ outcomes have the lowest occurrences in the data set.</p>
      <td>Transfer</td>
    </tr>
   <tr>
-    <td>True Positve Rate</td>
+    <td>True Positive Rate</td>
      <td>0.87</td> 
      <td>0</td>
      <td>0.04</td>
@@ -214,7 +214,7 @@ baseline for the other outcomes.  The coefficients of the model describe how the
 specified outcome changes as it relates to the outcome of Adoption when the independent variable is altered.  For example, the coefficient for the AnimalType-Dog indicator variable 
 is -.67 for the outcome of Died.  Since the coefficient is negative this means that the probability of dying decreases if the animal is 
 a dog.  Conversely, if a coefficient is positive then the probability of that outcome occurring increases relative to Adoption 
-when the independant variable is true (or increases in the case of a numerical variable).  You can perform 
+when the independent variable is true (or increases in the case of a numerical variable).  You can perform 
 some simple algebra on the coefficients to determine the actual change in probability when the independent variable changes, but sometimes it's enough to 
 know how the probability will change.  Another way to determine how the independent variables affect a specific outcome is to transform the 
 dependent variable into a binary outcome. I did this for the outcome of Euthanasia. After the transformation the OutcomeType variable is made 
